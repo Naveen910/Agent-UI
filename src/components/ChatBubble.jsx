@@ -1,11 +1,15 @@
 import "./ChatBubble.css";
 
-export default function ChatBubble({ message, from }) {
+export default function ChatBubble({ message, from, time, avatar }) {
+  const isUser = from === "user";
+
   return (
-    <div className={`chat-bubble ${from === "user" ? "user" : "bot"}`}>
-      <p>{message}</p>
+    <div className={`chat-bubble-container ${isUser ? "right" : "left"}`}>
+      {!isUser && avatar && <img src={avatar} alt="bot" className="chat-avatar" />}
+      <div className={`chat-bubble ${isUser ? "user" : "bot"}`}>
+        <p className="chat-text">{message}</p>
+        {time && <span className="chat-time">{time}</span>}
+      </div>
     </div>
   );
 }
-
-

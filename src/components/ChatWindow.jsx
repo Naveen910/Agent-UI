@@ -1,3 +1,4 @@
+// ...existing code...
 import { useState, useRef, useEffect } from "react";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
@@ -19,7 +20,7 @@ export default function ChatWindow() {
     setIsTyping(true);
 
     try {
-      // Send message to n8n webhook
+      
       const res = await fetch(
         "http://65.1.101.129:3004/webhook/b115dc9c-6248-49b0-8075-e206d2ac97ce",
         {
@@ -36,28 +37,39 @@ export default function ChatWindow() {
       setTimeout(() => {
         setMessages((prev) => [...prev, botMsg]);
         setIsTyping(false);
-      }, 800); // add small delay to simulate typing
+      }, 800); // small delay to simulate typing
     } catch (err) {
       setIsTyping(false);
       setMessages((prev) => [
         ...prev,
-        { from: "bot", text: "⚠️ Could not connect to n8n" },
+        { from: "bot", text: "⚠️ Could not connect to Agent" },
       ]);
     }
   };
 
   return (
     <div className="chat-window">
-      <MessageList messages={messages} />
-      {isTyping && (
-        <div className="typing-indicator">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      )}
-      <div ref={messagesEndRef} />
-      <MessageInput onSend={sendMessage} />
+      <div className="chat-header">
+        <div className="chat-title">Agent</div>
+        <div className="chat-status">Online</div>
+      </div>
+
+      <div className="messages-area">
+        <MessageList messages={messages} />
+        {isTyping && (
+          <div className="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
+      </div>
+
+      <div className="chat-footer">
+        <MessageInput onSend={sendMessage} />
+      </div>
     </div>
   );
 }
+// ...existing code...
