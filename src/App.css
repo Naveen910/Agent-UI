@@ -1,10 +1,10 @@
-/* ...existing code... */
+
 
 .auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: 50dvh;
   flex-direction: column;
   font-family: "Inter", sans-serif;
   padding: 32px;

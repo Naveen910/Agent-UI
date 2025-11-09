@@ -30,9 +30,14 @@ export default function ChatWindow() {
         }
       );
 
-      const data = await res.json();
-      const botReply = data[0]?.output || "No response from n8n";
-      const botMsg = { from: "bot", text: botReply };
+      // 👇 Changed to read plain text instead of JSON
+    const botReply = await res.text();
+
+    const botMsg = {
+      from: "bot",
+      text: botReply || "No response from n8n",
+    };
+
 
       setTimeout(() => {
         setMessages((prev) => [...prev, botMsg]);
@@ -72,4 +77,3 @@ export default function ChatWindow() {
     </div>
   );
 }
-// ...existing code...
